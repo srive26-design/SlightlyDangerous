@@ -6,14 +6,14 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Compile Windows exe
         run: |
           g++ -std=c++17 *.cpp -o SlightlyDangerous.exe
 
       - name: Upload Windows build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Windows-EXE
           path: SlightlyDangerous.exe
@@ -21,7 +21,7 @@ jobs:
   build-mac:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Compile macOS binary
         run: |
@@ -33,7 +33,7 @@ jobs:
           cp SlightlyDangerous SlightlyDangerous.app/Contents/MacOS/
 
       - name: Upload macOS build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Mac-APP
           path: SlightlyDangerous.app
