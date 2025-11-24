@@ -3,30 +3,37 @@ name: Build Game
 on: [push]
 
 jobs:
-  windows-build:
+  build-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build for Windows
-        run: g++ main.cpp player.cpp maze.cpp room.cpp monster.cpp item.cpp utils.cpp hud.cpp animation.cpp -o SlightlyDangerous.exe
-      - uses: actions/upload-artifact@v3
+
+      - name: Compile Windows exe
+        run: |
+          g++ -std=c++17 *.cpp -o SlightlyDangerous.exe
+
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v3
         with:
-          name: Windows-Build
+          name: Windows-EXE
           path: SlightlyDangerous.exe
 
-  mac-build:
+  build-mac:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build for Mac
-        run: clang++ main.cpp player.cpp maze.cpp room.cpp monster.cpp item.cpp utils.cpp hud.cpp animation.cpp -o SlightlyDangerous
-      - name: Package .app
+
+      - name: Compile macOS binary
         run: |
-          mkdir SlightlyDangerous.app
-          mkdir SlightlyDangerous.app/Contents
-          mkdir SlightlyDangerous.app/Contents/MacOS
-          mv SlightlyDangerous SlightlyDangerous.app/Contents/MacOS/
-      - uses: actions/upload-artifact@v3
+          clang++ -std=c++17 *.cpp -o SlightlyDangerous
+
+      - name: Create .app structure
+        run: |
+          mkdir -p SlightlyDangerous.app/Contents/MacOS
+          cp SlightlyDangerous SlightlyDangerous.app/Contents/MacOS/
+
+      - name: Upload macOS build
+        uses: actions/upload-artifact@v3
         with:
-          name: Mac-Build
+          name: Mac-APP
           path: SlightlyDangerous.app
