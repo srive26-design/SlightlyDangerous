@@ -1,0 +1,13 @@
+# Ignore build artifacts
+/build/*.exe
+/build/*.dll
+/build/*.lib
+/build/*.obj
+/build/*.pdb
+
+# Ignore temporary system files
+.DS_Store
+Thumbs.db
+
+# VS Code configs (optional)
+/.vscode/*
